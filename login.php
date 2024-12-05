@@ -1,8 +1,8 @@
 <?php 
 
     session_start(); 
-    if(isset($_SESSION['user_id'])){
-        header("location: dashboard.php");
+    if(isset($_SESSION['userType'])){
+        header("location: ./dashboard/dashboard.php");
         exit;
     }
 ?>
@@ -21,6 +21,13 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 class="text-2xl font-bold text-center mb-6">Log In</h2>
         <form id="loginForm">
+            <div class="mb-4">
+                <select id="userType" name="userType" required class="mt-1 block  border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2">
+                    <option value="" disabled selected>Login as</option>
+                    <option value="borrower">Borrower</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" placeholder="example@example.com">

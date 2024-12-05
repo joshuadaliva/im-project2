@@ -11,13 +11,13 @@
     <nav class="flex-1 px-4 py-6">
         <ul>
             <li class="mb-4">
-                <a class="flex items-center text-indigo-200 hover:text-white font-bold" href="/website/im-project2/dashboard.php">
+                <a class="flex items-center text-indigo-200 hover:text-white font-bold" href="/im/dashboard.php">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
             </li>
             <li class="mb-4">
-                <a class="flex items-center text-gray-400 hover:text-white font-bold" href="/website/im-project2/manage_borrowers.php">
+                <a class="flex items-center text-gray-400 hover:text-white font-bold" href="/im/manage_borrowers.php">
                     <i class="fa fa-user mr-3"></i>
                     Manage Borrowers
                 </a>

@@ -31,7 +31,7 @@
       </header>
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Clients</h1>
-        <div class="overflow-x-auto shadow-md rounded-md border-b border-gray-200 mb-8 overflow-y-auto">
+        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80  overflow-y-auto">
           <table class="min-w-full bg-white">
             <thead class="bg-blue-600 text-white">
               <tr>
@@ -58,22 +58,16 @@
                     echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["sex"]) . "</td>";
                     echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["mobile_number"]) . "</td>";
                     echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["email"]) . "</td>";
+                    echo "<td class='px-4 py-2 text-center'>
+                            <button class='bg-blue-500 text-white px-2 py-1 rounded addLoan'>Add Loan</button>
+                          </td>";
+                    echo "</tr>";
                   }
                 }
                 
 
               
               ?>
-              <!-- <tr>
-                <td class="px-4 py-2">1</td>
-                <td class="px-4 py-2">John Doe</td>
-                <td class="px-4 py-2">john.doe@example.com</td>
-                <td class="px-4 py-2">1234 Main St, City, Country</td>
-                <td class="px-4 py-2 text-center">
-                  <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
-                  <button class="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete</button>
-                </td>
-              </tr> -->
             </tbody>
           </table>
         </div>
@@ -83,16 +77,22 @@
             <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add New Client</h2>
             <form id="clientForm">
               <div class="mb-4">
-                <label for="name" class="block text-sm font-semibold mb-2">Name</label>
-                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                <label for="amount" class="block text-sm font-semibold mb-2">amount</label>
+                <input type="text" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
-                <label for="contact_info" class="block text-sm font-semibold mb-2">Contact Info</label>
-                <input type="email" id="contact_info" name="contact_info" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                <label for="start_date" class="block text-sm font-semibold mb-2">start date</label>
+                <input type="date" id="start_date" name="start_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
-                <label for="address" class="block text-sm font-semibold mb-2">Address</label>
-                <input type="text" id="address" name="address" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                <label for="due_date" class="block text-sm font-semibold mb-2">due date</label>
+                <input type="date" id="due_date" name="due_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+              </div>
+              <div class="mb-4">
+                <label for="status" class="block text-sm font-semibold mb-2">status</label>
+                <select name="status" id="status" class="p-2 rounded-md cursor-pointer">
+                  <option value="unpaid">unpaid</option>
+                </select>
               </div>
               <div class="flex justify-end">
                 <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" id="closeModalBtn">Cancel</button>
@@ -112,16 +112,8 @@
       document.getElementById('sidebar').classList.toggle('sidebar-hidden');
     });
 
-
-    const addClientBtn = document.getElementById('addClientBtn');
     const clientModal = document.getElementById('clientModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
-
-    addClientBtn.addEventListener('click', () => {
-      clientModal.classList.remove('hidden');
-      document.getElementById('modalTitle').textContent = 'Add New Client';
-      document.getElementById('clientForm').reset();
-    });
 
     closeModalBtn.addEventListener('click', () => {
       clientModal.classList.add('hidden');
@@ -133,6 +125,18 @@
       alert('Client saved!');
       clientModal.classList.add('hidden');
     });
+
+    
+    const addLoan = document.querySelectorAll(".addLoan")
+    addLoan.forEach(btn => {
+      btn.addEventListener("click", () => {
+        clientModal.classList.remove("hidden")
+        document.getElementById("modalTitle").textContent = "Add new Loan";
+        document.getElementById("clientForm").reset();
+      })
+    })
+
+    
   </script>
 </body>
 

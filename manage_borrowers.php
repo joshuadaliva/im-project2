@@ -1,3 +1,10 @@
+<?php
+session_start();
+if ($_SESSION["userType"] != "admin") {
+  header("Location: ./actions/addon/hecker.php");
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -6,6 +13,8 @@
   <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     .sidebar-hidden {
       transform: translateX(-100%);
@@ -46,27 +55,27 @@
             <tbody>
               <?php
 
-                require_once("./database/config.php");
-                $stmt = $conn -> prepare("SELECT * FROM borrowers");
-                $stmt -> execute();
-                $result = $stmt -> get_result();
-                if($result -> num_rows > 0){
-                  while($row = $result -> fetch_assoc()){
-                    echo "<tr class='border-b-2 border-gray-400/20'>";
-                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["borrower_id"]) . "</td>";
-                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["name"]) . "</td>";
-                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["sex"]) . "</td>";
-                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["mobile_number"]) . "</td>";
-                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["email"]) . "</td>";
-                    echo "<td class='px-4 py-2 text-center'>
-                            <button class='bg-blue-500 text-white px-2 py-1 rounded addLoan'>Add Loan</button>
+              require_once("./database/config.php");
+              $stmt = $conn->prepare("SELECT * FROM borrowers");
+              $stmt->execute();
+              $result = $stmt->get_result();
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  echo "<tr class='border-b-2 border-gray-400/20'>";
+                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["borrower_id"]) . "</td>";
+                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["name"]) . "</td>";
+                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["sex"]) . "</td>";
+                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["mobile_number"]) . "</td>";
+                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["email"]) . "</td>";
+                  echo "<td class='px-4 py-2 text-center'>
+                            <button class='bg-blue-500 text-white px-2 py-1 rounded addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Add Loan</button>
                           </td>";
-                    echo "</tr>";
-                  }
+                  echo "</tr>";
                 }
-                
+              }
 
-              
+
+
               ?>
             </tbody>
           </table>
@@ -105,6 +114,7 @@
     </div>
   </div>
   <script>
+    // sidebar
     document.getElementById('sidebarToggle').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('sidebar-hidden');
     });
@@ -112,6 +122,7 @@
       document.getElementById('sidebar').classList.toggle('sidebar-hidden');
     });
 
+    // modal
     const clientModal = document.getElementById('clientModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
 
@@ -119,24 +130,70 @@
       clientModal.classList.add('hidden');
     });
 
-    const clientForm = document.getElementById('clientForm');
-    clientForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Client saved!');
-      clientModal.classList.add('hidden');
+    // date
+    document.getElementById('start_date').addEventListener('change', function() {
+      const startDate = start_date.value;
+      const dueDateInput = document.getElementById('due_date');
+      if (startDate) {
+        dueDateInput.setAttribute('min', startDate);
+      } else {
+        dueDateInput.removeAttribute('min');
+      }
     });
 
-    
+    let borrower_id;
+
+    document.getElementById("clientForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const formData = new FormData(document.getElementById("clientForm"));
+      formData.append("borrower_id", Number(borrower_id));
+      console.log([...formData]);
+      fetch("http://localhost/im/actions/dashboard/process_add_loan.php", {
+          method: "POST",
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            Swal.fire({
+              title: "Success",
+              text: data.message,
+              icon: "success",
+              confirmButtonText: "OK"
+            })
+            .then(result => {
+              if(result.isConfirmed){
+                  clientModal.classList.add('hidden');
+              }
+            })
+          } else {
+            Swal.fire({
+              title: "error",
+              text: data.message,
+              icon: "error",
+              confirmButtonText: "OK"
+            })
+            .then(result => {
+              if(result.isConfirmed){
+                  clientModal.classList.add('hidden');
+              }
+            })
+          }
+        })
+    })
+
+
+    // add loan buttons
     const addLoan = document.querySelectorAll(".addLoan")
+    
     addLoan.forEach(btn => {
       btn.addEventListener("click", () => {
+        borrower_id = btn.value;
         clientModal.classList.remove("hidden")
-        document.getElementById("modalTitle").textContent = "Add new Loan";
+        document.getElementById("modalTitle").textContent = btn.value;
         document.getElementById("clientForm").reset();
       })
     })
-
-    
   </script>
 </body>
 

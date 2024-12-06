@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(loginForm)
         formData.append("submit", true)
-
-        fetch('actions/process_login.php', { 
+        fetch('http://localhost/im/actions/process_login.php', { 
             method: 'POST',
             body: formData
         })
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     confirmButtonText: 'OK'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'dashboard.php';
+                        window.location.href = data.location;
                     }
                 });
             } else {

@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 $_SESSION["userType"] = "borrower";
                 $_SESSION["id"] = $user["borrower_id"];
-                echo json_encode(['success' => true, 'message' => 'Login successful!']);
+                echo json_encode(['success' => true, 'message' => 'Login successful!', 'location' => "userPage.php"]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid email or password.']);
             }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 $_SESSION["userType"] = "admin";
                 $_SESSION["id"] = $user["admin_id"];
-                echo json_encode(['success' => true, 'message' => 'Login successful!']);
+                echo json_encode(['success' => true, 'message' => 'Login successful!', 'location' => "dashboard.php"]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid email or password.']);
             }

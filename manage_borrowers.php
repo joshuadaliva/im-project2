@@ -16,7 +16,7 @@
 <body class="bg-gray-100 font-sans antialiased">
   <div class="flex h-screen">
     <?php include_once("./components/sidebar.php"); ?>
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col max-w-full">
       <header class="flex items-center justify-between bg-white p-4 border-b border-gray-200">
         <div class="flex items-center">
           <button id="sidebarToggle" class="text-gray-500 focus:outline-none lg:hidden">
@@ -31,24 +31,40 @@
       </header>
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Clients</h1>
-
-        <button class="bg-blue-600 text-white px-4 py-2 rounded mb-6" id="addClientBtn">
-          Add New Client
-        </button>
-
-        <div class="overflow-x-auto shadow-md border-b border-gray-200 mb-8">
+        <div class="overflow-x-auto shadow-md rounded-md border-b border-gray-200 mb-8 overflow-y-auto">
           <table class="min-w-full bg-white">
             <thead class="bg-blue-600 text-white">
               <tr>
-                <th class="px-4 py-2 text-left">#</th>
+                <th class="px-4 py-2 text-left">ID</th>
                 <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Contact Info</th>
-                <th class="px-4 py-2 text-left">Address</th>
-                <th class="px-4 py-2 text-center">Actions</th>
+                <th class="px-4 py-2 text-left">Sex</th>
+                <th class="px-4 py-2 text-left">mobile number</th>
+                <th class="px-4 py-2 text-left">email</th>
+                <th class="px-4 py-2 text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <?php
+
+                require_once("./database/config.php");
+                $stmt = $conn -> prepare("SELECT * FROM borrowers");
+                $stmt -> execute();
+                $result = $stmt -> get_result();
+                if($result -> num_rows > 0){
+                  while($row = $result -> fetch_assoc()){
+                    echo "<tr class='border-b-2 border-gray-400/20'>";
+                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["borrower_id"]) . "</td>";
+                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["name"]) . "</td>";
+                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["sex"]) . "</td>";
+                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["mobile_number"]) . "</td>";
+                    echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>". htmlspecialchars($row["email"]) . "</td>";
+                  }
+                }
+                
+
+              
+              ?>
+              <!-- <tr>
                 <td class="px-4 py-2">1</td>
                 <td class="px-4 py-2">John Doe</td>
                 <td class="px-4 py-2">john.doe@example.com</td>
@@ -57,7 +73,7 @@
                   <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
                   <button class="bg-red-500 text-white px-2 py-1 rounded ml-2">Delete</button>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

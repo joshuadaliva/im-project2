@@ -2,7 +2,7 @@
 
     session_start();
     if($_SESSION["userType"] != "borrower"){
-        header("Location: ./actions/addon/hecker.php");
+        header("Location: /im/actions/addon/hecker.php");
         exit();
     }
 
@@ -41,7 +41,7 @@
         </div>
         <p class="text-gray-600 mt-4">This is your current outstanding balance.</p>
     </div>
-    <a href="./actions//logout.php" class="bg-blue-900 p-4 text-white rounded-md">logout</a>
+    <a href="/im/actions/logout.php" class="bg-blue-900 p-4 text-white rounded-md">logout</a>
 
 </body>
 </html>

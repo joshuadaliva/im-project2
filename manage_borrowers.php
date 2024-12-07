@@ -1,8 +1,12 @@
 <?php
-session_start();
-if ($_SESSION["userType"] != "admin") {
-  header("Location: ./actions/addon/hecker.php");
+
+if(isset($_SESSION)){
+  session_start();
+  if ($_SESSION["userType"] != "admin") {
+    header("Location: /im/actions/addon/hecker.php");
+  }
 }
+
 ?>
 
 <html lang="en">
@@ -39,9 +43,9 @@ if ($_SESSION["userType"] != "admin") {
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
-        <h1 class="text-3xl font-bold mb-6">Manage Clients</h1>
-        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80  overflow-y-auto">
-          <table class="min-w-full bg-white">
+        <h1 class="text-3xl font-bold mb-6">Manage Borrowers</h1>
+        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80  bg-white overflow-y-auto">
+          <table class="min-w-full bg-white ">
             <thead class="bg-blue-600 text-white">
               <tr>
                 <th class="px-4 py-2 text-left">ID</th>
@@ -52,7 +56,7 @@ if ($_SESSION["userType"] != "admin") {
                 <th class="px-4 py-2 text-center">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="md:h-80">
               <?php
 
               require_once("./database/config.php");
@@ -73,6 +77,13 @@ if ($_SESSION["userType"] != "admin") {
                   echo "</tr>";
                 }
               }
+              else{
+                echo "<tr>
+                        <td colspan='8' class='text-center py-4'>
+                        <span class='text-red-500 font-bold'>No Loan Found</span>
+                        </td>
+                    </tr>";
+              }
 
 
 
@@ -87,7 +98,7 @@ if ($_SESSION["userType"] != "admin") {
             <form id="clientForm">
               <div class="mb-4">
                 <label for="amount" class="block text-sm font-semibold mb-2">amount</label>
-                <input type="text" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>
+                <input type="number" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
                 <label for="start_date" class="block text-sm font-semibold mb-2">start date</label>
@@ -113,88 +124,6 @@ if ($_SESSION["userType"] != "admin") {
       </div>
     </div>
   </div>
-  <script>
-    // sidebar
-    document.getElementById('sidebarToggle').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-    });
-    document.getElementById('sidebarClose').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-    });
-
-    // modal
-    const clientModal = document.getElementById('clientModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-
-    closeModalBtn.addEventListener('click', () => {
-      clientModal.classList.add('hidden');
-    });
-
-    // date
-    document.getElementById('start_date').addEventListener('change', function() {
-      const startDate = start_date.value;
-      const dueDateInput = document.getElementById('due_date');
-      if (startDate) {
-        dueDateInput.setAttribute('min', startDate);
-      } else {
-        dueDateInput.removeAttribute('min');
-      }
-    });
-
-    let borrower_id;
-
-    document.getElementById("clientForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(document.getElementById("clientForm"));
-      formData.append("borrower_id", Number(borrower_id));
-      console.log([...formData]);
-      fetch("http://localhost/im/actions/dashboard/process_add_loan.php", {
-          method: "POST",
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            Swal.fire({
-              title: "Success",
-              text: data.message,
-              icon: "success",
-              confirmButtonText: "OK"
-            })
-            .then(result => {
-              if(result.isConfirmed){
-                  clientModal.classList.add('hidden');
-              }
-            })
-          } else {
-            Swal.fire({
-              title: "error",
-              text: data.message,
-              icon: "error",
-              confirmButtonText: "OK"
-            })
-            .then(result => {
-              if(result.isConfirmed){
-                  clientModal.classList.add('hidden');
-              }
-            })
-          }
-        })
-    })
-
-
-    // add loan buttons
-    const addLoan = document.querySelectorAll(".addLoan")
-    
-    addLoan.forEach(btn => {
-      btn.addEventListener("click", () => {
-        borrower_id = btn.value;
-        clientModal.classList.remove("hidden")
-        document.getElementById("modalTitle").textContent = btn.value;
-        document.getElementById("clientForm").reset();
-      })
-    })
-  </script>
+  <script src="./js/addLoan.js"></script>
 </body>
-
 </html>

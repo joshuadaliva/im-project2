@@ -1,6 +1,11 @@
 <?php
 
 
+if($_SERVER["REQUEST_METHOD"] != "POST"){
+    header("Location: /im/actions/addon/hecker.php");
+    exit;
+}
+
 if (!empty($name) && !empty($gender) && !empty($mobile_number) && !empty($userType) && !empty($email) && !empty($password)) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $conn->prepare("INSERT INTO borrowers (name, sex, mobile_number, email , password) VALUES (?, ?, ?, ?, ?)");

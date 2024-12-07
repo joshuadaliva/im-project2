@@ -3,7 +3,7 @@ session_start();
 require_once("../database/config.php");
 
 if (!isset($_POST['submit'])) {
-    header('Location: addon/hecker.php'); 
+    header('Location: /im/actions/addon/hecker.php'); 
     exit;
 }
 

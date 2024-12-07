@@ -1,11 +1,12 @@
 <?php
-
-    session_start();
-    if ($_SESSION["userType"] != "admin") {
-        header('Location: actions/addon/hecker.php'); 
-        exit;
+      
+    if(isset($_SESSION)){
+        session_start();  
+        if ($_SESSION["userType"] != "admin") {
+            header('Location: /im/actions/addon/hecker.php'); 
+            exit;
+        }
     }
-
 ?>
 
 
@@ -102,12 +103,6 @@
         </div>
     </div>
     <script>
-        document.getElementById('sidebarToggle').addEventListener('click', function () {
-            document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-        });
-        document.getElementById('sidebarClose').addEventListener('click', function () {
-            document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-        });
 
         const xValues = [100,200,300,400,500,600,700,800,900,1000];
 

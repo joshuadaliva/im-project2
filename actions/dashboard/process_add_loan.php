@@ -3,7 +3,7 @@
     require_once("../../database/config.php");
     session_start();
     if($_SESSION["userType"] != "admin"){
-        header("Location: ../addon/hecker.php");
+        header("Location: /im/actions/addon/hecker.php");
         exit();
     }
 

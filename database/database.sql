@@ -33,8 +33,8 @@ CREATE TABLE Loans (
     due_date DATE NOT NULL,
     status ENUM('paid', 'unpaid', 'overdue') NOT NULL,
     FOREIGN KEY (borrower_id) REFERENCES borrowers(borrower_id),
-    FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
-);
+    FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE CASCADE
+);  
 
 -- this is the process
 -- 1. mag signup si user , papiliin sya kung anong user type

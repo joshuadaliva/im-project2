@@ -93,7 +93,7 @@
                                     $result = $stmt -> get_result();
                                     if($result -> num_rows > 0){
                                         $row = $result -> fetch_assoc();
-                                        echo ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["total_amount"])  . '</h2> ';
+                                        echo $row["total_amount"] !== null ? ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["total_amount"])  . '</h2> ' : ' <h2 class="text-2xl font-bold">0 </h2> ';
                                     }
                                     else{
                                         echo '<h2 class="text-2xl font-bold">0</h2>';

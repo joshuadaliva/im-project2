@@ -68,7 +68,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
                 <th class="px-4 py-2 text-center">Action</th>
               </tr>
             </thead>
-            <tbody class="md:h-80 bg-white">
+            <tbody class=" bg-white">
               <?php
 
               require_once("./database/config.php");

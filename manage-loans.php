@@ -60,7 +60,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             <thead class="bg-blue-600 text-white">
               <tr>
                 <th class="px-4 py-2 text-left">Loan ID</th>
-                <th class="px-4 py-2 text-left">Borrower ID</th>
+                <th class="px-4 py-2 text-left">Borrower name</th>
                 <th class="px-4 py-2 text-left">Admin ID</th>
                 <th class="px-4 py-2 text-left">Amount</th>
                 <th class="px-4 py-2 text-left">Start Date</th>
@@ -72,7 +72,12 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             <tbody class="bg-white">
               <?php
               require_once("./database/config.php");
-              $stmt = $conn->prepare("SELECT * FROM Loans WHERE admin_id = ?");
+              $stmt = $conn->prepare("
+                        SELECT Loans.*, borrowers.name AS borrower_name 
+                        FROM Loans 
+                        LEFT JOIN borrowers ON Loans.borrower_id = borrowers.borrower_id
+                        WHERE Loans.admin_id = ?
+                    ");
               $stmt->bind_param("i", $_SESSION["id"]);
               $stmt->execute();
               $result = $stmt->get_result();
@@ -80,7 +85,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
                 while ($row = $result->fetch_assoc()) {
                   echo "<tr class=' bg-white hover:bg-gray-200'>
                                         <td class='border px-4 py-2'>" . htmlspecialchars($row["loan_id"]) . "</td>
-                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["borrower_id"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["borrower_name"]) . "</td>
                                         <td class='border px-4 py-2'>" . htmlspecialchars($row["admin_id"]) . "</td>
                                         <td class='border px-4 py-2'>" . htmlspecialchars($row["amount"]) . "</td>
                                         <td class='border px-4 py-2'>" . htmlspecialchars($row["start_date"]) . "</td>

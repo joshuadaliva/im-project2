@@ -1,12 +1,10 @@
 <?php
-      
-    if(isset($_SESSION)){
-        session_start();  
-        if ($_SESSION["userType"] != "admin") {
-            header('Location: /im/actions/addon/hecker.php'); 
-            exit;
-        }
+    session_start();
+    if(!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin"){
+        header('Location: /im/actions/addon/hecker.php'); 
+        exit;
     }
+    
 ?>
 
 
@@ -41,11 +39,17 @@
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <img alt="Flag" class="h-5 w-5 rounded-full mr-4" height="20" src="https://storage.googleapis.com/a1aa/image/xfEXzAa7Wfq3b0fezUstSKop8XIzOZx7lgIjkS8EBe6xjlmeE.jpg" width="20"/>
-                    <div class="relative">
-                        <i class="fas fa-bell text-gray-500"></i>
-                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">2</span>
-                    </div>
+                    <?php
+                        require_once("./database/config.php");
+                        $stmt = $conn -> prepare("select name from admins where admin_id = ?");
+                        $stmt -> bind_param("i", $_SESSION["id"]);
+                        $stmt -> execute();
+                        $result = $stmt -> get_result();
+                        if($result -> num_rows > 0){
+                            $row = $result -> fetch_assoc();
+                            echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
+                        }
+                    ?>
                     <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40"/>
                 </div>
             </header>
@@ -55,8 +59,24 @@
                         <div class="flex items-center">
                             <i class="fas fa-user text-blue-500 text-3xl"></i>
                             <div class="ml-4">
-                                <h4 class="text-gray-500">Total Borrowers</h4>
-                                <h2 class="text-2xl font-bold">17</h2>
+                                <h4 class="text-gray-500">Total Made Loans</h4>
+                                <?php
+                                    include("./database/config.php");
+                                    $stmt = $conn -> prepare("SELECT Count(amount) as total_borrowers from Loans WHERE admin_id = ?");
+                                    $stmt -> bind_param("i", $_SESSION["id"]);
+                                    $stmt -> execute();
+                                    $result = $stmt -> get_result();
+                                    if($result -> num_rows > 0){
+                                        $row = $result -> fetch_assoc();
+                                        echo ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["total_borrowers"])  . '</h2> ';
+                                    }
+                                    else {
+                                        echo '<h2 class="text-2xl font-bold">0</h2>';
+                                
+                                    }
+                                    
+                                ?>
+                                
                             </div>
                         </div>
                     </div>
@@ -65,7 +85,20 @@
                             <i class="fas fa-dollar-sign text-yellow-500 text-3xl"></i>
                             <div class="ml-4">
                                 <h4 class="text-gray-500">Total Borrowed Money</h4>
-                                <h2 class="text-2xl font-bold">20+</h2>
+                                <?php
+                                    include("./database/config.php");
+                                    $stmt = $conn -> prepare("SELECT sum(amount) as total_amount from Loans WHERE admin_id = ?");
+                                    $stmt -> bind_param("i", $_SESSION["id"]);
+                                    $stmt -> execute();
+                                    $result = $stmt -> get_result();
+                                    if($result -> num_rows > 0){
+                                        $row = $result -> fetch_assoc();
+                                        echo ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["total_amount"])  . '</h2> ';
+                                    }
+                                    else{
+                                        echo '<h2 class="text-2xl font-bold">0</h2>';
+                                    }
+                                    ?>
                             </div>
                         </div>
                     </div>
@@ -74,7 +107,22 @@
                             <i class="fa fa-check-circle text-red-500 text-3xl"></i>
                             <div class="ml-4">
                                 <h4 class="text-gray-500">Total Paid Users</h4>
-                                <h2 class="text-2xl font-bold">11</h2>
+                                <?php
+                                    include("./database/config.php");
+                                    $stmt = $conn -> prepare("SELECT count(status) as unpaid from Loans WHERE status = 'paid' && admin_id = ?");
+                                    $stmt -> bind_param("i", $_SESSION["id"]);
+                                    $stmt -> execute();
+                                    $result = $stmt -> get_result();
+                                    if($result -> num_rows > 0){
+                                        $row = $result -> fetch_assoc();
+                                        echo ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["unpaid"])  . '</h2> ';
+                                    }
+                                    else {
+                                        echo '<h2 class="text-2xl font-bold">0</h2>'; 
+                                
+                                    }
+                                    
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -84,19 +132,31 @@
 
                             <div class="ml-4">
                                 <h4 class="text-gray-500">Total Unpaid Users</h4>
-                                <h2 class="text-2xl font-bold">12</h2>
+                                <?php
+                                    require_once("./database/config.php");
+                                    $stmt = $conn -> prepare("SELECT count(status) as unpaid from Loans WHERE status = 'unpaid' && admin_id = ?");
+                                    $stmt -> bind_param("i", $_SESSION["id"]);
+                                    $stmt -> execute();
+                                    $result = $stmt -> get_result();
+                                    if($result -> num_rows > 0){
+                                        $row = $result -> fetch_assoc();
+                                        echo ' <h2 class="text-2xl font-bold">'. htmlspecialchars($row["unpaid"])  . '</h2> ';
+                                    }
+                                    else {
+
+                                        echo '<h2 class="text-2xl font-bold">0</h2>';
+                                
+                                    }
+                                    
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-lg shadow">
-                        <h3 class="text-lg font-semibold mb-4">Reports</h3>
-                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow">
                         <h3 class="text-lg font-semibold mb-4">Analytics</h3>
-                        <canvas id="Analytics" style="width:100%;max-width:600px"></canvas>
+                        <canvas id="myChart" style="width:100%;max-width:100%"></canvas>
                     </div>
                 </div>
             </main>

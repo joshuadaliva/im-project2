@@ -1,10 +1,9 @@
 <?php
 
-if(isset($_SESSION)){
-  session_start();
-  if ($_SESSION["userType"] != "admin") {
-    header("Location: /im/actions/addon/hecker.php");
-  }
+session_start();
+if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
+  header('Location: /im/actions/addon/hecker.php');
+  exit;
 }
 
 ?>
@@ -35,11 +34,24 @@ if(isset($_SESSION)){
           <button id="sidebarToggle" class="text-gray-500 focus:outline-none lg:hidden">
             <i class="fas fa-bars"></i>
           </button>
-
           <div class="relative ml-4 lg:ml-0 hidden lg:block">
             <input class="bg-gray-100 rounded-full pl-10 pr-4 py-2 focus:outline-none" placeholder="Search" type="text" />
             <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
           </div>
+        </div>
+        <div class="flex items-center">
+          <?php
+          require_once("./database/config.php");
+          $stmt = $conn->prepare("select name from admins where admin_id = ?");
+          $stmt->bind_param("i", $_SESSION["id"]);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
+          }
+          ?>
+          <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
@@ -76,17 +88,13 @@ if(isset($_SESSION)){
                           </td>";
                   echo "</tr>";
                 }
-              }
-              else{
+              } else {
                 echo "<tr>
                         <td colspan='8' class='text-center py-4'>
                         <span class='text-red-500 font-bold'>No Loan Found</span>
                         </td>
                     </tr>";
               }
-
-
-
               ?>
             </tbody>
           </table>
@@ -126,4 +134,5 @@ if(isset($_SESSION)){
   </div>
   <script src="./js/addLoan.js"></script>
 </body>
+
 </html>

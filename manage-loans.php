@@ -1,10 +1,9 @@
 <?php
 
-if(isset($_SESSION)){
-  session_start();
-  if ($_SESSION["userType"] != "admin") {
-    header("Location: /im/actions/addon/hecker.php");
-  }
+session_start();
+if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
+  header('Location: /im/actions/addon/hecker.php');
+  exit;
 }
 
 ?>
@@ -41,10 +40,24 @@ if(isset($_SESSION)){
             <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
           </div>
         </div>
+        <div class="flex items-center">
+          <?php
+          require_once("./database/config.php");
+          $stmt = $conn->prepare("select name from admins where admin_id = ?");
+          $stmt->bind_param("i", $_SESSION["id"]);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
+          }
+          ?>
+          <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+        </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Loans</h1>
-        <div class="overflow-x-auto shadow-md relative  border-b border-gray-200 mb-8 md:h-80 bg-white overflow-y-auto">
+        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80 bg-white overflow-y-auto">
           <table class="min-w-full bg-white ">
             <thead class="bg-blue-600 text-white">
               <tr>
@@ -62,7 +75,7 @@ if(isset($_SESSION)){
               <?php
               require_once("./database/config.php");
               $stmt = $conn->prepare("SELECT * FROM Loans WHERE admin_id =  ? ");
-              $stmt-> bind_param("i", $_SESSION["id"]);
+              $stmt->bind_param("i", $_SESSION["id"]);
               $stmt->execute();
               $result = $stmt->get_result();
               if ($result->num_rows > 0) {
@@ -76,13 +89,12 @@ if(isset($_SESSION)){
                   echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["due_date"]) . "</td>";
                   echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["status"]) . "</td>";
                   echo "<td class='px-4 py-2 text-center flex'>
-                            <button class='bg-yellow-500 text-white m-1  px2 py-1 rounded addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Update Loan</button>
-                            <button class='bg-red-500 text-white m-1 px-2 py-1 rounded addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Delete Loan</button>
+                            <button class='bg-yellow-500 text-white m-1  px-2 py-2 rounded-md hover:bg-yellow-600 addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Update Loan</button>
+                            <button class='bg-red-500 text-white m-1 px-2 py-2 rounded-md hover:bg-red-600 addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Delete Loan</button>
                           </td>";
                   echo "</tr>";
                 }
-              }
-              else{
+              } else {
                 echo "<tr>
                         <td colspan='8' class='text-center py-4'>
                         <span class='text-red-500 font-bold'>No Loan Found</span>
@@ -126,8 +138,9 @@ if(isset($_SESSION)){
       </div>
     </div>
   </div>
- <script>
-    
- </script>
+  <script>
+
+  </script>
 </body>
+
 </html>

@@ -1,10 +1,8 @@
 <?php
-session_start();
-if (isset($_SESSION["userType"])) {
-    if ($_SESSION["userType"] != "admin") {
-        header("Location: /im/actions/addon/hecker.php");
-        exit;
-    }
+
+if(!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin"){
+    header('Location: /im/actions/addon/hecker.php'); 
+    exit;
 }
 
 ?>
@@ -49,13 +47,13 @@ if (isset($_SESSION["userType"])) {
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a class="flex items-center text-gray-200 hover:text-white font-bold" href="setting.php">
+                    <a class="flex items-center text-gray-200 hover:text-white font-bold" href="/im/setting.php">
                         <i class="fas fa-cog mr-3"></i>
                         Settings
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a class="flex items-center text-gray-200 hover:text-white font-bold" href="#">
+                    <a class="flex items-center text-gray-200 hover:text-white font-bold" href="/im/profile_admin.php">
                         <i class="fa fa-user-circle mr-3"></i>
                         Profile
                     </a>
@@ -63,7 +61,7 @@ if (isset($_SESSION["userType"])) {
             </ul>
             <ul>
                 <li>
-                    <a href="actions/logout.php" class="flex items-center text-gray-200 hover:text-white font-bold">Logout</a>
+                    <a href="/im/actions/dashboard/logoutAdmin.php" class="flex items-center text-gray-200 hover:text-white font-bold">Logout</a>
                 </li>
             </ul>
         </nav>

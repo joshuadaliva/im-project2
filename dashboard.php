@@ -104,7 +104,7 @@
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow">
                         <div class="flex items-center">
-                            <i class="fa fa-check-circle text-red-500 text-3xl"></i>
+                            <i class="fa fa-check-circle text-green-500 text-3xl"></i>
                             <div class="ml-4">
                                 <h4 class="text-gray-500">Total Paid Users</h4>
                                 <?php
@@ -128,8 +128,7 @@
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow">
                         <div class="flex items-center">
-                            <i class="fa fa-times-circle text-purple-500 text-3xl"></i>
-
+                            <i class="fa fa-times-circle text-red-500 text-3xl"></i>
                             <div class="ml-4">
                                 <h4 class="text-gray-500">Total Unpaid Users</h4>
                                 <?php

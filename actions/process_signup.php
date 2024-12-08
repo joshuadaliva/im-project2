@@ -9,12 +9,21 @@ if (!isset($_POST['submit'])) {
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = trim($_POST['name']);
-    $gender = trim($_POST['gender']);
-    $mobile_number = trim($_POST['mobile_number']);
-    $userType = trim($_POST['userType']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+
+    function sanitizerString($data){
+        $data = filter_var($data , FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $data = trim($data);
+        $data = strip_tags($data);
+        return $data;
+    }
+
+
+    $name = sanitizerString($_POST['name']);
+    $gender = sanitizerString($_POST['gender']);
+    $mobile_number = sanitizerString($_POST['mobile_number']);
+    $userType = sanitizerString($_POST['userType']);
+    $email = sanitizerString($_POST['email']);
+    $password = sanitizerString($_POST['password']);
 
     if($userType == "borrower"){
         require("./process_signup_borrower.php");

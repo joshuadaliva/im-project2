@@ -1,11 +1,9 @@
 <?php
-
 session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   header('Location: /im/actions/addon/hecker.php');
   exit;
 }
-
 ?>
 
 <html lang="en">
@@ -43,104 +41,101 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
         <div class="flex items-center">
           <?php
           require_once("./database/config.php");
-          $stmt = $conn->prepare("select name from admins where admin_id = ?");
+          $stmt = $conn->prepare("SELECT name FROM admins WHERE admin_id = ?");
           $stmt->bind_param("i", $_SESSION["id"]);
           $stmt->execute();
           $result = $stmt->get_result();
           if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
+            echo "<p class='font-bold'> <span class='text-red-500'>! hello  </span>" . htmlspecialchars($row["name"]) . "</p>";
           }
           ?>
-          <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Loans</h1>
-        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80 bg-white overflow-y-auto">
+        <div class="overflow-x-auto shadow-md border-b border-gray-200 mb-8 md:h-80 bg-white overflow-y-auto">
           <table class="min-w-full bg-white ">
             <thead class="bg-blue-600 text-white">
               <tr>
-                <th class="px-4 py-2 text-left">loan id</th>
-                <th class="px-4 py-2 text-left">borrower id</th>
-                <th class="px-4 py-2 text-left">admin id</th>
-                <th class="px-4 py-2 text-left">amount</th>
-                <th class="px-4 py-2 text-left">start date</th>
-                <th class="px-4 py-2 text-left">due date</th>
-                <th class="px-4 py-2 text-center">status</th>
-                <th class="px-4 py-2 text-center">actions</th>
+                <th class="px-4 py-2 text-left">Loan ID</th>
+                <th class="px-4 py-2 text-left">Borrower ID</th>
+                <th class="px-4 py-2 text-left">Admin ID</th>
+                <th class="px-4 py-2 text-left">Amount</th>
+                <th class="px-4 py-2 text-left">Start Date</th>
+                <th class="px-4 py-2 text-left">Due Date</th>
+                <th class="px-4 py-2 text-center">Status</th>
+                <th class="px-4 py-2 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="bg-white">
               <?php
               require_once("./database/config.php");
-              $stmt = $conn->prepare("SELECT * FROM Loans WHERE admin_id =  ? ");
+              $stmt = $conn->prepare("SELECT * FROM Loans WHERE admin_id = ?");
               $stmt->bind_param("i", $_SESSION["id"]);
               $stmt->execute();
               $result = $stmt->get_result();
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  echo "<tr class='border-b-2 border-gray-400/20'>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["loan_id"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["borrower_id"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["admin_id"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["amount"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["start_date"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["due_date"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xm overflow-hidden text-ellipsis'>" . htmlspecialchars($row["status"]) . "</td>";
-                  echo "<td class='px-4 py-2 text-center flex'>
-                            <button class='bg-yellow-500 text-white m-1  px-2 py-2 rounded-md hover:bg-yellow-600 addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Update Loan</button>
-                            <button class='bg-red-500 text-white m-1 px-2 py-2 rounded-md hover:bg-red-600 addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Delete Loan</button>
-                          </td>";
-                  echo "</tr>";
+                  echo "<tr class=' bg-white hover:bg-gray-200'>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["loan_id"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["borrower_id"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["admin_id"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["amount"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["start_date"]) . "</td>
+                                        <td class='border px-4 py-2'>" . htmlspecialchars($row["due_date"]) . "</td>
+                                        <td class='border px-4 py-2 text-center'>" . htmlspecialchars($row["status"]) . "</td>
+                                        <td class='border px-4 py-2 text-center'>
+                                            <button class='updateLoan bg-blue-500 text-white px-4 py-2 rounded' value='" . htmlspecialchars($row["loan_id"]) . "'>Update</button>
+                                            <button class='deleteLoan bg-red-500 text-white px-4 py-2 rounded' value='" . htmlspecialchars($row["loan_id"]) . "'>Delete</button>
+                                        </td>
+                                    </tr>";
                 }
               } else {
-                echo "<tr>
-                        <td colspan='8' class='text-center py-4'>
-                        <span class='text-red-500 font-bold'>No Loan Found</span>
-                        </td>
-                    </tr>";
+                echo "<tr><td colspan='8' class='text-center py-4'>No loans found.</td></tr>";
               }
               ?>
             </tbody>
           </table>
         </div>
-
-        <div id="clientModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-          <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-            <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add New Client</h2>
-            <form id="clientForm">
-              <div class="mb-4">
-                <label for="amount" class="block text-sm font-semibold mb-2">amount</label>
-                <input type="number" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>
-              </div>
-              <div class="mb-4">
-                <label for="start_date" class="block text-sm font-semibold mb-2">start date</label>
-                <input type="date" id="start_date" name="start_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
-              </div>
-              <div class="mb-4">
-                <label for="due_date" class="block text-sm font-semibold mb-2">due date</label>
-                <input type="date" id="due_date" name="due_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
-              </div>
-              <div class="mb-4">
-                <label for="status" class="block text-sm font-semibold mb-2">status</label>
-                <select name="status" id="status" class="p-2 rounded-md cursor-pointer">
-                  <option value="unpaid">unpaid</option>
-                </select>
-              </div>
-              <div class="flex justify-end">
-                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded mr-2" id="closeModalBtn">Cancel</button>
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-  <script>
 
-  </script>
+  <!-- Modal for updating loan -->
+  <div id="clientModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white w-lg px-9 p-6 rounded shadow-lg">
+      <h2 class="text-xl font-bold mb-4">Update Loan</h2>
+      <form id="clientForm" class="w-full">
+        <input type="hidden" id="loan_id" name="loan_id" />
+        <div class="mb-4">
+          <label for="amount" class="block text-gray-700">Amount</label>
+          <input type="number" id="amount" name="amount" class="border rounded w-full py-2 px-3" required />
+        </div>
+        <div class="mb-4">
+          <label for="start_date" class="block text-gray-700">Start Date</label>
+          <input type="date" id="start_date" name="start_date" class="border rounded w-full py-2 px-3" required />
+        </div>
+        <div class="mb-4">
+          <label for="due_date" class="block text-gray-700">Due Date</label>
+          <input type="date" id="due_date" name="due_date" class="border rounded w-full py-2 px-3" required />
+        </div>
+        <div class="mb-4">
+          <label for="status" class="block text-gray-700">Status</label>
+          <select id="status" name="status" class="border rounded w-full py-2 px-3" required>
+            <option value="unpaid">unpaid</option>
+            <option value="paid">paid</option>
+            <option value="overdue">overdue</option>
+          </select>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Loan</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded ml-2" onclick="document.getElementById('clientModal').classList.add('hidden')">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./js/manage_loan.js"></script>
 </body>
 
 </html>

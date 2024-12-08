@@ -57,7 +57,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Borrowers</h1>
         <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80  bg-white overflow-y-auto">
-          <table class="min-w-full bg-white ">
+          <table class="min-w-full ">
             <thead class="bg-blue-600 text-white">
               <tr>
                 <th class="px-4 py-2 text-left">ID</th>
@@ -68,7 +68,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
                 <th class="px-4 py-2 text-center">Action</th>
               </tr>
             </thead>
-            <tbody class="md:h-80">
+            <tbody class="md:h-80 bg-white">
               <?php
 
               require_once("./database/config.php");
@@ -77,14 +77,14 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
               $result = $stmt->get_result();
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  echo "<tr class='border-b-2 border-gray-400/20'>";
-                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["borrower_id"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["name"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["sex"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["mobile_number"]) . "</td>";
-                  echo "<td class='px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["email"]) . "</td>";
-                  echo "<td class='px-4 py-2 text-center'>
-                            <button class='bg-blue-500 text-white px-2 py-1 rounded addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Add Loan</button>
+                  echo "<tr class='bg-white  hover:bg-gray-200'>";
+                  echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["borrower_id"]) . "</td>";
+                  echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["name"]) . "</td>";
+                  echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["sex"]) . "</td>";
+                  echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["mobile_number"]) . "</td>";
+                  echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["email"]) . "</td>";
+                  echo "<td class='border px-4 py-2 text-center'>
+                            <button class='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 addLoan' value='" . htmlspecialchars($row["borrower_id"]) . "'>Add Loan</button>
                           </td>";
                   echo "</tr>";
                 }

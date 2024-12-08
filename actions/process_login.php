@@ -9,9 +9,18 @@ if (!isset($_POST['submit'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $userType = $_POST["userType"];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+
+
+    function sanitizerString($data){
+        $data = filter_var($data , FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $data = trim($data);
+        $data = strip_tags($data);
+        return $data;
+    }
+    
+    $userType = sanitizerString($_POST["userType"]);
+    $email = sanitizerString($_POST['email']);
+    $password = sanitizerString($_POST['password']);
 
     if (empty($email) || empty($password) || empty($userType)) {
         echo json_encode(['success' => false, 'message' => 'Usertype, Email and password are required.']);

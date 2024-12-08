@@ -34,7 +34,16 @@ CREATE TABLE Loans (
     status ENUM('paid', 'unpaid', 'overdue') NOT NULL,
     FOREIGN KEY (borrower_id) REFERENCES borrowers(borrower_id),
     FOREIGN KEY (admin_id) REFERENCES admins(admin_id) ON DELETE CASCADE
-);  
+);
+
+
+CREATE TABLE sessions_admin (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    admin_id INT NOT NULL,
+    session_token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (admin_id) REFERENCES admins(admin_id)
+);
 
 -- this is the process
 -- 1. mag signup si user , papiliin sya kung anong user type

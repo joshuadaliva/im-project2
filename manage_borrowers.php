@@ -35,7 +35,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             <i class="fas fa-bars"></i>
           </button>
           <div class="relative ml-4 lg:ml-0 hidden lg:block">
-            <input class="bg-gray-100 rounded-full pl-10 pr-4 py-2 focus:outline-none" placeholder="Search" type="text" />
+            <input class="bg-gray-100 rounded-full pl-10 pr-4 py-2 focus:outline-none" placeholder="Search" type="text" id="searchInput" />
             <i class="fas fa-search absolute left-3 top-2 text-gray-400"></i>
           </div>
         </div>
@@ -51,33 +51,42 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
           }
           ?>
-          <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
         <h1 class="text-3xl font-bold mb-6">Manage Borrowers</h1>
-        <div class="overflow-x-auto shadow-md  border-b border-gray-200 mb-8 md:h-80  bg-white overflow-y-auto">
-          <table class="min-w-full ">
+        
+        <div class="mb-4 flex items-center">
+          <input type="text" id="searchInputBorrowers" placeholder="Search by name" class="border border-gray-300 rounded px-4 py-2 mr-4" />
+          <select id="sexFilter" class="border border-gray-300 rounded px-4 py-2">
+            <option value="">All Sexes</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <div class="overflow-x-auto shadow-md border-b border-gray-200 mb-8 md:h-80 bg-white overflow-y-auto">
+          <table class="min-w-full">
             <thead class="bg-blue-600 text-white">
               <tr>
                 <th class="px-4 py-2 text-left">ID</th>
                 <th class="px-4 py-2 text-left">Name</th>
                 <th class="px-4 py-2 text-left">Sex</th>
-                <th class="px-4 py-2 text-left">mobile number</th>
-                <th class="px-4 py-2 text-left">email</th>
+                <th class="px-4 py-2 text-left">Mobile Number</ th>
+                <th class="px-4 py-2 text-left">Email</th>
                 <th class="px-4 py-2 text-center">Action</th>
               </tr>
             </thead>
-            <tbody class=" bg-white">
+            <tbody id="borrowersTable" class="bg-white">
               <?php
-
               require_once("./database/config.php");
               $stmt = $conn->prepare("SELECT * FROM borrowers");
               $stmt->execute();
               $result = $stmt->get_result();
               if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                  echo "<tr class='bg-white  hover:bg-gray-200'>";
+                  echo "<tr class='bg-white hover:bg-gray-200'>";
                   echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["borrower_id"]) . "</td>";
                   echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["name"]) . "</td>";
                   echo "<td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>" . htmlspecialchars($row["sex"]) . "</td>";
@@ -90,8 +99,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
                 }
               } else {
                 echo "<tr>
-                        <td colspan='8' class='text-center py-4'>
-                        <span class='text-red-500 font-bold'>No Loan Found</span>
+                        <td colspan='6' class='text-center py-4'>
+                        <span class='text-red-500 font-bold'>No Borrowers Found</span>
                         </td>
                     </tr>";
               }
@@ -105,21 +114,21 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add New Client</h2>
             <form id="clientForm">
               <div class="mb-4">
-                <label for="amount" class="block text-sm font-semibold mb-2">amount</label>
+                <label for="amount" class="block text-sm font-semibold mb-2">Amount</label>
                 <input type="number" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
-                <label for="start_date" class="block text-sm font-semibold mb-2">start date</label>
+                <label for="start_date" class="block text-sm font-semibold mb-2">Start Date</label>
                 <input type="date" id="start_date" name="start_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
-                <label for="due_date" class="block text-sm font-semibold mb-2">due date</label>
+                <label for="due_date" class="block text-sm font-semibold mb-2">Due Date</label>
                 <input type="date" id="due_date" name="due_date" class="w-full px-4 py-2 border border-gray-300 rounded" required>
               </div>
               <div class="mb-4">
-                <label for="status" class="block text-sm font-semibold mb-2">status</label>
+                <label for="status" class="block text-sm font-semibold mb-2">Status</label>
                 <select name="status" id="status" class="p-2 rounded-md cursor-pointer">
-                  <option value="unpaid">unpaid</option>
+                  <option value="unpaid">Unpaid</option>
                 </select>
               </div>
               <div class="flex justify-end">
@@ -132,6 +141,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
       </div>
     </div>
   </div>
+  <script src="./js/searchBorrowers.js"></script>
+  <script src="./js/filterBorrowers.js"></script>
   <script src="./js/addLoan.js"></script>
 </body>
 

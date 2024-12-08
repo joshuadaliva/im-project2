@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $loanId = sanitizerInt($_POST['loan_id']);
-    $amount = sanitizerInt($_POST['amount']);
+    $amount = sanitizerString($_POST['amount']);
     $startDate = sanitizerString($_POST['start_date']);
     $dueDate = sanitizerString($_POST['due_date']);
     $status = sanitizerString($_POST['status']);

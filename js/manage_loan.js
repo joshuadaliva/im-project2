@@ -1,3 +1,7 @@
+function getCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]')?.content || '';
+}
+
 
 // show details to the modal
 const updateLoan = document.querySelectorAll('.updateLoan')
@@ -6,6 +10,7 @@ updateLoan.forEach(button => {
     const loanId = button.value;
     const formData = new FormData();
     formData.append('loan_id', loanId);
+    formData.append('csrf_token', getCsrfToken());
 
     fetch("/im/actions/dashboard/process_get_loan.php", {
         method: 'POST',
@@ -84,6 +89,7 @@ document.querySelectorAll('.deleteLoan').forEach(button => {
 
     const formData = new FormData();
     formData.append('loan_id', loanId);
+    formData.append('csrf_token', getCsrfToken());
     Swal.fire({
         title: "warning",
         text: "do you want to delete this loan",

@@ -36,6 +36,42 @@ function app_secure_session_start(): void
     session_start();
 }
 
+function app_csrf_token(): string
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        app_secure_session_start();
+    }
+
+    if (empty($_SESSION['csrf_token']) || !is_string($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+
+    return $_SESSION['csrf_token'];
+}
+
+function app_csrf_field(): string
+{
+    return '<input type="hidden" name="csrf_token" value="' . app_escape(app_csrf_token()) . '">';
+}
+
+function app_csrf_meta(): string
+{
+    return '<meta name="csrf-token" content="' . app_escape(app_csrf_token()) . '">';
+}
+
+function app_validate_csrf_token(): void
+{
+    $submittedToken = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+
+    if (!is_string($submittedToken) || !hash_equals(app_csrf_token(), $submittedToken)) {
+        app_json_response([
+            'success' => false,
+            'message' => 'Invalid security token. Please refresh the page and try again.',
+        ], 403);
+        exit;
+    }
+}
+
 function app_json_response(array $payload, int $statusCode = 200): void
 {
     if (!headers_sent()) {
@@ -46,7 +82,7 @@ function app_json_response(array $payload, int $statusCode = 200): void
     echo json_encode($payload);
 }
 
-function app_require_post(): void
+function app_require_post(bool $validateCsrf = true): void
 {
     if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
         app_json_response([
@@ -54,6 +90,10 @@ function app_require_post(): void
             'message' => 'Invalid request method.',
         ], 405);
         exit;
+    }
+
+    if ($validateCsrf) {
+        app_validate_csrf_token();
     }
 }
 

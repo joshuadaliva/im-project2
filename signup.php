@@ -19,13 +19,15 @@ if(isset($_SESSION["userType"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet">
+    <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+    <?= app_csrf_meta() ?>
 </head>
 <body class="bg-gray-800 w-full flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 class="text-2xl font-bold text-center mb-6">Sign Up</h2>
         <form id="signupForm" method="post" action="actions/process_signup.php">
+            <?= app_csrf_field() ?>
             <div class="mb-4 flex space-x-4">
                 <div class="flex-1">
                     <label for="name" class="block text-sm font-medium text-gray-700">Name</label>

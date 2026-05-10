@@ -14,14 +14,15 @@ require_once __DIR__ . "/./includes/security.php";
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
+    <script src="/im/assets/vendor/chartjs/Chart.min.js"></script>
+    <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
     <style>
         .sidebar-hidden {
             transform: translateX(-100%);
         }
     </style>
+    <?= app_csrf_meta() ?>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen">
@@ -51,7 +52,7 @@ require_once __DIR__ . "/./includes/security.php";
                             echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
                         }
                     ?>
-                    <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40"/>
+                    <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="/im/assets/img/user.svg" width="40"/>
                 </div>
             </header>
             <main class="flex-1 overflow-y-auto p-6">

@@ -14,7 +14,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Current Utang Display with Tailwind CSS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet">
+    <?= app_csrf_meta() ?>
 </head>
 <body class="bg-blue-500 flex items-center">
     <?php include_once("./components/sidebar_borrower.php"); ?>

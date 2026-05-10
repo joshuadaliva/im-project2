@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(changePassForm)
         formData.append("submit", true)
-        fetch('http://localhost/im/actions/dashboard/process_change_pass.php', { 
+        fetch('/im/actions/dashboard/process_change_pass.php', { 
             method: 'POST',
             body: formData
         })

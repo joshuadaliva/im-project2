@@ -1,10 +1,15 @@
+<?php
+require_once __DIR__ . "/./includes/security.php";
+app_secure_session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utang Information System</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
+    <?= app_csrf_meta() ?>
 </head>
 <body class="min-h-screen">
   <section class="min-h-screen flex flex-col justify-center items-center bg-gray-900 text-white">

@@ -13,15 +13,16 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
+  <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css">
+  <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
   <style>
     .sidebar-hidden {
       transform: translateX(-100%);
     }
   </style>
+    <?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -51,7 +52,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             echo "<p class='font-bold'> <span class='text-red-500'>! hello  </span>" . htmlspecialchars($row["name"]) . "</p>";
           }
           ?>
-          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="/im/assets/img/user.svg" width="40" />
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
@@ -114,6 +115,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
     <div class="bg-white w-lg px-9 p-6 rounded shadow-lg">
       <h2 class="text-xl font-bold mb-4">Update Loan</h2>
       <form id="clientForm" class="w-full">
+        <?= app_csrf_field() ?>
         <input type="hidden" id="loan_id" name="loan_id" />
         <div class="mb-4">
           <label for="amount" class="block text-gray-700">Amount</label>

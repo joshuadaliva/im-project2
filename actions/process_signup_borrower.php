@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . "/../includes/security.php";
+app_secure_session_start();
+app_require_post();
 
 
 if($_SERVER["REQUEST_METHOD"] != "POST"){

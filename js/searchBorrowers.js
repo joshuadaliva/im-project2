@@ -1,3 +1,7 @@
+function getCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+}
+
 function appendBorrowerRow(table, borrower) {
     const row = document.createElement('tr');
     row.className = 'bg-white hover:bg-gray-200';
@@ -43,8 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('search', searchValue);
+        formData.append('csrf_token', getCsrfToken());
 
-        fetch("http://localhost/im/actions/dashboard/process_search_borrowers.php", {
+        fetch("/im/actions/dashboard/process_search_borrowers.php", {
             method: 'POST',
             body: formData
         })

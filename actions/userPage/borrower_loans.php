@@ -13,7 +13,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet">
+    <?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100">

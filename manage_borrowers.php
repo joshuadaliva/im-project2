@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . "/./includes/security.php";
 
-session_start();
+app_secure_session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   header('Location: /im/actions/addon/hecker.php');
   exit;
@@ -14,15 +15,16 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
+  <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
+  <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
+  <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
   <style>
     .sidebar-hidden {
       transform: translateX(-100%);
     }
   </style>
+    <?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -51,7 +53,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
           }
           ?>
-          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+          <img alt="User " class="h-10 w-10 rounded-full ml-4" height="40" src="/im/assets/img/user.svg" width="40" />
         </div>
       </header>
       <div class="flex-1 p-4 sm:p-8">
@@ -113,6 +115,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
           <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
             <h2 class="text-2xl font-bold mb-4" id="modalTitle">Add New Client</h2>
             <form id="clientForm">
+              <?= app_csrf_field() ?>
               <div class="mb-4">
                 <label for="amount" class="block text-sm font-semibold mb-2">Amount</label>
                 <input type="number" id="amount" name="amount" class="w-full px-4 py-2 border border-gray-300 rounded" required>

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData(changePassForm);
     formData.append("submit", true);
     fetch(
-      "http://localhost/im/actions/userPage/process_change_password_borrower.php",
+      "/im/actions/userPage/process_change_password_borrower.php",
       {
         method: "POST",
         body: formData,

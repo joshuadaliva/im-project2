@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . "/./includes/security.php";
+app_secure_session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     header('Location: /im/actions/addon/hecker.php');
     exit;
@@ -13,7 +14,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Current Utang Display with Tailwind CSS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet" integrity="sha384-KYShmLEIZs+qOi0nCAm6yhRbw60FgzK5kO/yq+OMVgeZypzmbbay/6xVPL1zPAI8" crossorigin="anonymous">
+    <?= app_csrf_meta() ?>
 </head>
 <body class="bg-blue-500 flex items-center">
     <?php include_once("./components/sidebar_borrower.php"); ?>

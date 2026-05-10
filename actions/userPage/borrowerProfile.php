@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . "/../../includes/security.php";
+app_secure_session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     header('Location: /im/actions/addon/hecker.php');
     exit;
@@ -21,9 +22,10 @@ if ($result->num_rows > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css">
+    <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+    <?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100">
@@ -61,6 +63,7 @@ if ($result->num_rows > 0) {
 
         <h2 class="text-xl font-bold mt-8 mb-4">Change Password</h2>
         <form id="changePassForm">
+            <?= app_csrf_field() ?>
             <div class="mb-4">
                 <label class="block text-gray-700" for="current-password">Current Password:</label>
                 <input type="password" id="current-password" name="current_password" class="mt-1 block w-full p-2 border border-gray-300 rounded" required>

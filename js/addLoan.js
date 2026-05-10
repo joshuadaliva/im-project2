@@ -26,7 +26,7 @@
     e.preventDefault();
     const formData = new FormData(document.getElementById("clientForm"));
     formData.append("borrower_id", Number(borrower_id));
-    fetch("http://localhost/im/actions/dashboard/process_add_loan.php", {
+    fetch("/im/actions/dashboard/process_add_loan.php", {
         method: "POST",
         body: formData
       })

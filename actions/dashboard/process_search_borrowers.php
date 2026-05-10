@@ -1,47 +1,26 @@
-    <?php
-    require_once("../../database/config.php");
-    session_start();
-    if ($_SESSION["userType"] != "admin") {
-        header("Location: /im/actions/addon/hecker.php");
-        exit();
-    }
+<?php
+require_once __DIR__ . "/../../includes/security.php";
+app_secure_session_start();
+require_once("../../database/config.php");
 
-    function sanitizerString($data)
-    {
-        $data = filter_var($data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $data = trim($data);
-        $data = strip_tags($data);
-        return $data;
-    }
+app_require_role('admin');
+app_require_post();
 
+$searchTerm = trim(strip_tags((string) filter_var($_POST['search'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+$stmt = $conn->prepare("SELECT borrower_id, name, sex, mobile_number, email FROM borrowers WHERE name LIKE ?");
+$searchTerm = "%" . $searchTerm . "%";
+$stmt->bind_param("s", $searchTerm);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    if (isset($_POST['search'])) {
-        $searchTerm = sanitizerString($_POST['search']);
-        $stmt = $conn->prepare("SELECT * FROM borrowers WHERE name LIKE ?");
-        $searchTerm = "%" . $searchTerm . "%";
-        $stmt->bind_param("s", $searchTerm);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        $borrowers = [];
-        while ($row = $result->fetch_assoc()) {
-            $borrowers[] = $row; 
-        }
-    
-        if (count($borrowers) > 0) {
-            $res = [
-                "success" => true,
-                "message" => "borrowers found",
-                "data" => $borrowers
-            ];
-        } else {
-            $res = [
-                "success" => false,
-                "message" => "no borrowers found",
-                "data" => null
-            ];
-        }
-        echo json_encode($res);
-        exit;
-    }
-    ?>
+$borrowers = [];
+while ($row = $result->fetch_assoc()) {
+    $borrowers[] = $row;
+}
+
+if (count($borrowers) > 0) {
+    app_json_response(["success" => true, "message" => "borrowers found", "data" => $borrowers]);
+} else {
+    app_json_response(["success" => false, "message" => "no borrowers found", "data" => []]);
+}
+?>

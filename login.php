@@ -52,6 +52,6 @@ if(isset($_SESSION["userType"])){
         </p>
     </div>
 
-    <script src="js/login.js"></script>
+    <script src="/im/js/login.js" integrity="sha384-QphtDa+LASjBvvx8htffwD4oFjMtRNe4QVLsuy4953f+SHWzycVHRLAAXW6HU1K8" crossorigin="anonymous"></script>
 </body>
 </html>

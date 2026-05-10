@@ -72,6 +72,6 @@ if(isset($_SESSION["userType"])){
         <div id="message" class="mt-4 text-center"></div>
     </div>
 
-    <script src="./js/signup.js"></script>
+    <script src="/im/js/signup.js" integrity="sha384-kVVuoubmIRaDMUF2fQ5LiGE2pHlC/dGpP6yN8KUYMSe8oSJNnpxxO75sri1GunsH" crossorigin="anonymous"></script>
  </body>
 </html>

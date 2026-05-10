@@ -19,12 +19,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
   <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
   <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
-  <style>
-    .sidebar-hidden {
-      transform: translateX(-100%);
-    }
-  </style>
-    <?= app_csrf_meta() ?>
+<?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -144,9 +139,9 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
       </div>
     </div>
   </div>
-  <script src="./js/searchBorrowers.js"></script>
-  <script src="./js/filterBorrowers.js"></script>
-  <script src="./js/addLoan.js"></script>
+  <script src="/im/js/searchBorrowers.js" integrity="sha384-Gs9rQo50lodhPZF9nQk5CoL33ZonxrrHtSiWMObjFeRYuyhRizRCJxStsMC5UqWU" crossorigin="anonymous"></script>
+  <script src="/im/js/filterBorrowers.js" integrity="sha384-TpT3MGbg54O7f5dctzS09sBA12NhcOm67uNrN8yUkMyNPzP55xv57OnTtV4V6rMv" crossorigin="anonymous"></script>
+  <script src="/im/js/addLoan.js" integrity="sha384-tvxEX9Y2plV2y9FSiszovMCLRpTpihZHIzrxNcdiudq0EOF6YCBU2E8WDv3aFTbg" crossorigin="anonymous"></script>
 </body>
 
 </html>

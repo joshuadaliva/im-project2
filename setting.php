@@ -18,12 +18,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
     <title>Dashboard</title>
     <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
     <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
-    <style>
-        .sidebar-hidden {
-            transform: translateX(-100%);
-        }
-    </style>
-    <?= app_csrf_meta() ?>
+<?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -66,31 +61,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             </div>
         </div>
 
-        <script>
-            const changeSidebarColor = (colorClass) => {
-                const sidebars = document.querySelectorAll(".sidebar");
-                localStorage.setItem("sidebarColor", colorClass)
-                sidebars.forEach(sidebar => {
-                    sidebar.classList.remove("bg-red-500", "bg-green-800", "bg-indigo-500", "bg-gray-700");
-                    sidebar.classList.add(colorClass);
-                });
-            }
-            document.getElementById('red').addEventListener('click', () => {
-                changeSidebarColor("bg-red-500");
-            });
+        <script src="/im/js/settings.js" integrity="sha384-WosMjCK9IC2Uw4kZ8iXfKEy8pGQPnwgsZpLjT9RHPcZJ18zeQhu/K7IRs9oBZG2E" crossorigin="anonymous"></script>
 
-            document.getElementById('green').addEventListener('click', () => {
-                changeSidebarColor("bg-green-800");
-            });
-
-            document.getElementById('blue').addEventListener('click', () => {
-                changeSidebarColor("bg-indigo-500");
-            });
-
-            document.getElementById('dark').addEventListener('click', () => {
-                changeSidebarColor("bg-gray-700");
-            });
-        </script>
 </body>
 
 </html>

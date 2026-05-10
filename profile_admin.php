@@ -19,12 +19,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
     <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
     <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
     <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
-    <style>
-        .sidebar-hidden {
-            transform: translateX(-100%);
-        }
-    </style>
-    <?= app_csrf_meta() ?>
+<?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -109,7 +104,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             </div>
         </div>
     </div>
-    <script src="./js/changePass.js"></script>
+    <script src="/im/js/changePass.js" integrity="sha384-/dLfFZIC3ebU84rmoZASju/IE+GmmhgzEW/Y2WLYoRX4E3YFcbanwolnX0kf1P/H" crossorigin="anonymous"></script>
 </body>
 
 </html>

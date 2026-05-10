@@ -66,28 +66,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
             </div>
         </div>
     </div>
-
-    <script>
-        const openSidebar = document.getElementById('open-sidebar');
-        const closeSidebar = document.getElementById('close-sidebar');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-
-        openSidebar.addEventListener('click', () => {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-        });
-
-        closeSidebar.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-        });
-    </script>
+    <script src="/im/js/sidebar_borrower.js" integrity="sha384-cCapWqanngaIm+UUCS1va1uihZrOA1+fSf+aPo6Q0CWNtrH2Fl5T5SmcdcNf/MwB" crossorigin="anonymous"></script>
 </body>
 
 </html>

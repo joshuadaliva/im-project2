@@ -17,12 +17,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
   <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
   <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
-  <style>
-    .sidebar-hidden {
-      transform: translateX(-100%);
-    }
-  </style>
-    <?= app_csrf_meta() ?>
+<?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -138,12 +133,12 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
           </select>
         </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Loan</button>
-        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded ml-2" onclick="document.getElementById('clientModal').classList.add('hidden')">Cancel</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded ml-2" id="closeModalBtn">Cancel</button>
       </form>
     </div>
   </div>
 
-  <script src="./js/manage_loan.js"></script>
+  <script src="/im/js/manage_loan.js" integrity="sha384-/51BpTP8dQGDfqX1yu6zks/7QtYnXWwgST0S1Mwz7pqsIC9uR0SRTmLeDtEQIYFR" crossorigin="anonymous"></script>
 </body>
 
 </html>

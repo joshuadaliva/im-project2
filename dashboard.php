@@ -17,12 +17,7 @@ require_once __DIR__ . "/./includes/security.php";
     <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
     <script src="/im/assets/vendor/chartjs/Chart.min.js" integrity="sha384-6vvKlkk0JXzi0Mna0VX9qlzK3+sIUVODY01DE2StB0qbuFnes0O2dBGZ+G/p4bBS" crossorigin="anonymous"></script>
     <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
-    <style>
-        .sidebar-hidden {
-            transform: translateX(-100%);
-        }
-    </style>
-    <?= app_csrf_meta() ?>
+<?= app_csrf_meta() ?>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
     <div class="flex h-screen">
@@ -157,34 +152,13 @@ require_once __DIR__ . "/./includes/security.php";
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-lg shadow">
                         <h3 class="text-lg font-semibold mb-4">Analytics</h3>
-                        <canvas id="myChart" style="width:100%;max-width:100%"></canvas>
+                        <canvas id="myChart" class="w-full max-w-full"></canvas>
                     </div>
                 </div>
             </main>
         </div>
     </div>
-    <script>
+    <script src="/im/js/dashboard_chart.js" integrity="sha384-UbHX11AEg+nUYk5EEezdBd2LwAgibsA2VHXC9WWSkjOTnn8MQyFcIwuVrOHZKh6r" crossorigin="anonymous"></script>
 
-        const xValues = [100,200,300,400,500,600,700,800,900,1000];
-
-        new Chart("myChart", {
-        type: "line",
-        data: {
-            labels: xValues,
-            datasets: [{ 
-            data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
-            borderColor: "red",
-            fill: false
-            }, { 
-            data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-            borderColor: "green",
-            fill: false
-            }, ]
-        },
-        options: {
-            legend: {display: false}
-        }
-        });
-    </script>
 </body>
 </html>

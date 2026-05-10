@@ -152,3 +152,7 @@ document.getElementById('start_date').addEventListener('change', function() {
     dueDateInput.removeAttribute('min');
   }
 });
+
+document.getElementById('closeModalBtn')?.addEventListener('click', () => {
+  clientModal.classList.add('hidden');
+});

@@ -79,7 +79,7 @@ if ($result->num_rows > 0) {
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Change Password</button>
         </form>
     </div>
-    <script src="/im/js/changePassBorrower.js"></script>
+    <script src="/im/js/changePassBorrower.js" integrity="sha384-6s84YM+om49BD33A+NDMmyLSgxK8qmIKkzurhCxi+Co8g1aoz2EkFitOXZCASlcH" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -66,20 +66,7 @@ if(!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin"){
             </ul>
         </nav>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('sidebarToggle').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-            });
-            document.getElementById('sidebarClose').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-            });
-
-            const sidebar = document.getElementById("sidebar")
-            const sidebarColor = localStorage.getItem("sidebarColor") || "bg-indigo-500"
-            sidebar.classList.add(sidebarColor)
-        });
-    </script>
+    <script src="/im/js/sidebar_admin.js" integrity="sha384-aZGCHPkqNN4dqaIs1kmJUwocAzVk7PdBDvCB6375PDQueSTsoLSRGALfezLnSr+m" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 <?php
-session_start();
+require_once __DIR__ . "/../../includes/security.php";
+app_secure_session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     header('Location: /im/actions/addon/hecker.php');
     exit;
@@ -12,7 +13,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet" integrity="sha384-KYShmLEIZs+qOi0nCAm6yhRbw60FgzK5kO/yq+OMVgeZypzmbbay/6xVPL1zPAI8" crossorigin="anonymous">
+    <?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100">
@@ -68,28 +70,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "borrower") {
             </table>
         </div>
     </div>
-
-    <script>
-        const openSidebar = document.getElementById("open-sidebar");
-        const closeSidebar = document.getElementById("close-sidebar");
-        const sidebar = document.getElementById("sidebar");
-        const overlay = document.getElementById("overlay");
-
-        openSidebar.addEventListener("click", () => {
-            sidebar.classList.remove("-translate-x-full");
-            overlay.classList.remove("hidden");
-        });
-
-        closeSidebar.addEventListener("click", () => {
-            sidebar.classList.add("-translate-x-full");
-            overlay.classList.add("hidden");
-        });
-
-        overlay.addEventListener("click", () => {
-            sidebar.classList.add("-translate-x-full");
-            overlay.classList.add("hidden");
-        });
-    </script>
+    <script src="/im/js/sidebar_borrower.js" integrity="sha384-cCapWqanngaIm+UUCS1va1uihZrOA1+fSf+aPo6Q0CWNtrH2Fl5T5SmcdcNf/MwB" crossorigin="anonymous"></script>
 </body>
 
 </html>

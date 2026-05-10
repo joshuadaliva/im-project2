@@ -1,6 +1,7 @@
-<?php 
+<?php
+require_once __DIR__ . "/./includes/security.php"; 
 
-session_start();
+app_secure_session_start();
 if(isset($_SESSION["userType"])){
     if($_SESSION['userType'] == "admin"){
         header("location: /im/dashboard.php");
@@ -19,14 +20,16 @@ if(isset($_SESSION["userType"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet" integrity="sha384-KYShmLEIZs+qOi0nCAm6yhRbw60FgzK5kO/yq+OMVgeZypzmbbay/6xVPL1zPAI8" crossorigin="anonymous">
+    <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
+    <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
+    <?= app_csrf_meta() ?>
 </head>
 <body class="bg-gray-800 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 class="text-2xl font-bold text-center mb-6">Log In</h2>
-        <form id="loginForm">
+        <form id="loginForm" method="post" action="actions/process_login.php">
+            <?= app_csrf_field() ?>
             <div class="mb-4">
                 <select id="userType" name="userType" required class="mt-1 block  border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2">
                     <option value="" disabled selected>Login as</option>
@@ -49,6 +52,6 @@ if(isset($_SESSION["userType"])){
         </p>
     </div>
 
-    <script src="js/login.js"></script>
+    <script src="/im/js/login.js" integrity="sha384-QphtDa+LASjBvvx8htffwD4oFjMtRNe4QVLsuy4953f+SHWzycVHRLAAXW6HU1K8" crossorigin="anonymous"></script>
 </body>
 </html>

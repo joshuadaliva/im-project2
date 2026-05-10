@@ -1,3 +1,43 @@
+function getCsrfToken() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+}
+
+function appendBorrowerRow(table, borrower) {
+    const row = document.createElement('tr');
+    row.className = 'bg-white hover:bg-gray-200';
+
+    ['borrower_id', 'name', 'sex', 'mobile_number', 'email'].forEach(field => {
+        const cell = document.createElement('td');
+        cell.className = 'border px-4 py-2 max-w-xs overflow-hidden text-ellipsis';
+        cell.textContent = borrower[field] ?? '';
+        row.appendChild(cell);
+    });
+
+    const actionCell = document.createElement('td');
+    actionCell.className = 'border px-4 py-2 text-center';
+    const button = document.createElement('button');
+    button.className = 'bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 addLoan';
+    button.value = borrower.borrower_id ?? '';
+    button.textContent = 'Add Loan';
+    actionCell.appendChild(button);
+    row.appendChild(actionCell);
+
+    table.appendChild(row);
+}
+
+function showBorrowerMessage(table, message) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 6;
+    cell.className = 'text-center py-4';
+    const span = document.createElement('span');
+    span.className = 'text-red-500 font-bold';
+    span.textContent = message;
+    cell.appendChild(span);
+    row.appendChild(cell);
+    table.appendChild(row);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const sexFilter = document.getElementById('sexFilter');
     const borrowersTable = document.getElementById('borrowersTable');
@@ -7,40 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData();
         formData.append('sex', sexValue);
+        formData.append('csrf_token', getCsrfToken());
 
-        fetch("http://localhost/im/actions/dashboard/process_filter_borrowers.php", {
+        fetch("/im/actions/dashboard/process_filter_borrowers.php", {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
-            borrowersTable.innerHTML = '';
+            borrowersTable.textContent = '';
 
             if (data.success && data.data.length > 0) {
-                data.data.forEach(borrower => {
-                    const row = document.createElement('tr');
-                    row.className = 'bg-white hover:bg-gray-200';
-                    row.innerHTML = `
-                        <td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>${borrower.borrower_id}</td>
-                        <td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>${borrower.name}</td>
-                        <td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis '>${borrower.sex}</td>
-                        <td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>${borrower.mobile_number}</td>
-                        <td class='border px-4 py-2 max-w-xs overflow-hidden text-ellipsis'>${borrower.email}</td>
-                        <td class='border px-4 py-2 text-center'>
-                            <button class='bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-700 addLoan' value='${borrower.borrower_id}'>Add Loan</button>
-                        </td>
-                    `;
-                    borrowersTable.appendChild(row);
-                });
-                attachAddLoanListeners(); 
+                data.data.forEach(borrower => appendBorrowerRow(borrowersTable, borrower));
+                attachAddLoanListeners();
             } else {
-                borrowersTable.innerHTML = `
-                    <tr>
-                        <td colspan='6' class='text-center py-4'>
-                            <span class='text-red-500 font-bold'>${data.message}</span>
-                        </td>
-                    </tr>
-                `;
+                showBorrowerMessage(borrowersTable, data.message || 'No borrowers found');
             }
         });
     };

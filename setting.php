@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . "/./includes/security.php";
 
-session_start();
+app_secure_session_start();
 if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
     header('Location: /im/actions/addon/hecker.php');
     exit;
@@ -15,13 +16,9 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <style>
-        .sidebar-hidden {
-            transform: translateX(-100%);
-        }
-    </style>
+    <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
+    <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
+<?= app_csrf_meta() ?>
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -50,7 +47,7 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
                         echo "<p class= 'font-bold'> <span class='text-red-500'>! hello  </span>"  .  htmlspecialchars($row["name"]) . "</p>";
                     }
                     ?>
-                    <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="https://storage.googleapis.com/a1aa/image/T9QXi4dVAwZFPd3BeMxudVe5pfHROMRtVeyJyCO0uBWDySTPB.jpg" width="40" />
+                    <img alt="User" class="h-10 w-10 rounded-full ml-4" height="40" src="/im/assets/img/user.svg" width="40" />
                 </div>
             </header>
             <div class="flex-1 p-4 sm:p-8">
@@ -64,31 +61,8 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
             </div>
         </div>
 
-        <script>
-            const changeSidebarColor = (colorClass) => {
-                const sidebars = document.querySelectorAll(".sidebar");
-                localStorage.setItem("sidebarColor", colorClass)
-                sidebars.forEach(sidebar => {
-                    sidebar.classList.remove("bg-red-500", "bg-green-800", "bg-indigo-500", "bg-gray-700");
-                    sidebar.classList.add(colorClass);
-                });
-            }
-            document.getElementById('red').addEventListener('click', () => {
-                changeSidebarColor("bg-red-500");
-            });
+        <script src="/im/js/settings.js" integrity="sha384-WosMjCK9IC2Uw4kZ8iXfKEy8pGQPnwgsZpLjT9RHPcZJ18zeQhu/K7IRs9oBZG2E" crossorigin="anonymous"></script>
 
-            document.getElementById('green').addEventListener('click', () => {
-                changeSidebarColor("bg-green-800");
-            });
-
-            document.getElementById('blue').addEventListener('click', () => {
-                changeSidebarColor("bg-indigo-500");
-            });
-
-            document.getElementById('dark').addEventListener('click', () => {
-                changeSidebarColor("bg-gray-700");
-            });
-        </script>
 </body>
 
 </html>

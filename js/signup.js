@@ -3,7 +3,7 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
 
     const formData = new FormData(this);
     formData.append("submit", true)
-    fetch('http://localhost/im/actions/process_signup.php', {
+    fetch(this.action, {
         method: 'POST',
         body: formData
     })

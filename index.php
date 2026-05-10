@@ -8,7 +8,7 @@ app_secure_session_start();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Utang Information System</title>
-  <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
+  <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
     <?= app_csrf_meta() ?>
 </head>
 <body class="min-h-screen">

@@ -19,8 +19,8 @@ if(isset($_SESSION["userType"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
-    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet">
-    <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+    <link href="/im/assets/vendor/tailwind/tailwind.min.css" rel="stylesheet" integrity="sha384-KYShmLEIZs+qOi0nCAm6yhRbw60FgzK5kO/yq+OMVgeZypzmbbay/6xVPL1zPAI8" crossorigin="anonymous">
+    <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
     <?= app_csrf_meta() ?>
 </head>
 <body class="bg-gray-800 w-full flex items-center justify-center min-h-screen">

@@ -15,10 +15,10 @@ if (!isset($_SESSION["userType"]) || $_SESSION["userType"] != "admin") {
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Dashboard</title>
-  <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
-  <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css">
-  <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
+  <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
+  <link rel="stylesheet" href="/im/assets/vendor/sweetalert2/sweetalert2.min.css" integrity="sha384-cQA7jQW0oV3hKneBnT6kkgyUQwoJqnbcWrT9icUYLRxjk7NtMLQtOPTlg6guduzp" crossorigin="anonymous">
+  <script src="/im/assets/vendor/sweetalert2/sweetalert2.all.min.js" integrity="sha384-njiiBwCC1FddZoJQbCnY5uMLD7vLzIROj07SExr1uej6zI48JF6lFZoTRSIg1ckA" crossorigin="anonymous"></script>
   <style>
     .sidebar-hidden {
       transform: translateX(-100%);

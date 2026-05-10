@@ -9,7 +9,10 @@ ini_set('session.use_strict_mode', '1');
 ini_set('session.cookie_httponly', '1');
 ini_set('session.cookie_samesite', 'Strict');
 
+const APP_CSP_POLICY = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'";
+
 if (!headers_sent()) {
+    header('Content-Security-Policy: ' . APP_CSP_POLICY);
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header('Referrer-Policy: same-origin');

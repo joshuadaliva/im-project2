@@ -14,9 +14,9 @@ require_once __DIR__ . "/./includes/security.php";
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Dashboard</title>
-    <script src="/im/assets/vendor/tailwind/tailwindcss.js"></script>
-    <script src="/im/assets/vendor/chartjs/Chart.min.js"></script>
-    <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet"/>
+    <script src="/im/assets/vendor/tailwind/tailwindcss.js" integrity="sha384-bNgnNtW1ThPcFq/uPp2Yt3e0nlaMZssfero1Z6+KZFDwnIYIPgnhZ+ljAlsad5DY" crossorigin="anonymous"></script>
+    <script src="/im/assets/vendor/chartjs/Chart.min.js" integrity="sha384-6vvKlkk0JXzi0Mna0VX9qlzK3+sIUVODY01DE2StB0qbuFnes0O2dBGZ+G/p4bBS" crossorigin="anonymous"></script>
+    <link href="/im/assets/vendor/fontawesome/css/all.min.css" rel="stylesheet" integrity="sha384-VptpI+/HXUmQ4/00mROBcVLzZ3bfP1gDR5u14cb0GWSfZ8nQXgh4hYVpYFn8l2Hx" crossorigin="anonymous">
     <style>
         .sidebar-hidden {
             transform: translateX(-100%);

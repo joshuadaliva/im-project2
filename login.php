@@ -1,6 +1,7 @@
-<?php 
+<?php
+require_once __DIR__ . "/./includes/security.php"; 
 
-session_start();
+app_secure_session_start();
 if(isset($_SESSION["userType"])){
     if($_SESSION['userType'] == "admin"){
         header("location: /im/dashboard.php");
@@ -26,7 +27,7 @@ if(isset($_SESSION["userType"])){
 <body class="bg-gray-800 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-96">
         <h2 class="text-2xl font-bold text-center mb-6">Log In</h2>
-        <form id="loginForm">
+        <form id="loginForm" method="post" action="actions/process_login.php">
             <div class="mb-4">
                 <select id="userType" name="userType" required class="mt-1 block  border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2">
                     <option value="" disabled selected>Login as</option>

@@ -1,11 +1,9 @@
 <?php
-session_start();
+require_once __DIR__ . "/../includes/security.php";
+app_secure_session_start();
 require_once("../database/config.php");
 
-if (!isset($_POST['submit'])) {
-    header('Location: /im/actions/addon/hecker.php');
-    exit;
-}
+app_require_post();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -16,12 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $data;
     }
 
-    $name = sanitizerString($_POST['name']);
-    $gender = sanitizerString($_POST['gender']);
-    $mobile_number = sanitizerString($_POST['mobile_number']);
-    $userType = sanitizerString($_POST['userType']);
-    $email = sanitizerString($_POST['email']);
-    $password = sanitizerString($_POST['password']);
+    $name = sanitizerString(($_POST['name'] ?? ''));
+    $gender = sanitizerString(($_POST['gender'] ?? ''));
+    $mobile_number = sanitizerString(($_POST['mobile_number'] ?? ''));
+    $userType = sanitizerString(($_POST['userType'] ?? ''));
+    $email = sanitizerString(($_POST['email'] ?? ''));
+    $password = sanitizerString(($_POST['password'] ?? ''));
 
     function isValidPassword($password) {
         if (strlen($password) < 8) {

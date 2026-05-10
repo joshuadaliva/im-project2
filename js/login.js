@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const formData = new FormData(loginForm)
         formData.append("submit", true)
-        fetch('http://localhost/im/actions/process_login.php', { 
+        fetch(this.action, { 
             method: 'POST',
             body: formData
         })
